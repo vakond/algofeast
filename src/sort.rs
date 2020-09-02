@@ -1,5 +1,6 @@
 //! Sorting algorithms.
 
+#[allow(unused_imports)]
 use std::fmt::Debug;
 
 type Index = usize;
@@ -7,7 +8,7 @@ type Index = usize;
 /// Sorts a sequence using the SelectionSort algorithm.
 ///  0, 1, 2, 3, 4, 5, 6, 7, 8, 9
 /// [5, 8, 4, 3, 1, 6, 9, 2, 7, 0]
-pub fn selectsort<T: PartialOrd + Debug>(seq: &mut [T]) {
+pub fn selectsort<T: PartialOrd>(seq: &mut [T]) {
     if seq.len() > 1 {
         for i in 0..(seq.len() - 1) {
             let j = i + 1 + select_min(&seq[(i + 1)..]);
@@ -17,7 +18,7 @@ pub fn selectsort<T: PartialOrd + Debug>(seq: &mut [T]) {
         }
     }
 
-    fn select_min<T: PartialOrd + Debug>(seq: &[T]) -> Index {
+    fn select_min<T: PartialOrd>(seq: &[T]) -> Index {
         let mut result = 0;
         for i in 0..seq.len() {
             if seq[i] < seq[result] {

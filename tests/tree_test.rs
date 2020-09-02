@@ -1,21 +1,9 @@
+use algotest::tree; // macro tree!
 use algotest::tree::Tree;
 
 #[test]
 fn it_works() {
-    let mut tree = Tree::new();
-
-    tree.insert(1);
-    tree.insert(3);
-    tree.insert(2);
-    tree.insert(5);
-    tree.insert(4);
-    tree.insert(2);
-    tree.insert(9);
-    tree.insert(7);
-    tree.insert(8);
-    tree.insert(6);
-    tree.insert(6);
-    tree.insert(1);
+    let tree = tree![1, 3, 2, 5, 4, 2, 9, 7, 8, 6, 6, 1];
 
     assert!(tree.contains(4));
     assert!(!tree.contains(999));

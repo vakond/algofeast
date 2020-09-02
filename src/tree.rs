@@ -1,6 +1,8 @@
 //! Binary search tree. Build and walk.
+
 use std::cmp::Ordering;
 
+/// Represents binary search tree.
 pub struct Tree<T: Copy + Ord> {
     root: Link<T>,
 }
@@ -29,6 +31,7 @@ impl<T: Copy + Ord> Tree<T> {
     }
 }
 
+/// Walks all descendants of link in order, producing sorted vector.
 fn walk_inorder<T: Copy>(link: &Link<T>, acc: &mut Vec<T>) {
     link.as_ref().map(|node| {
         walk_inorder(&node.left, acc);
@@ -88,4 +91,16 @@ impl<T: Copy + Ord> Iterator for IntoIter<T> {
     fn next(&mut self) -> Option<Self::Item> {
         None
     }
+}
+
+/// Simple macro to create and fill a tree.
+#[macro_export]
+macro_rules! tree {
+    ( $( $x:expr ), * ) => {
+        {
+            let mut t = Tree::new();
+            $( t.insert($x); )*
+            t
+        }
+    };
 }
