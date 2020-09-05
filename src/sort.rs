@@ -6,8 +6,6 @@ use std::fmt::Debug;
 type Index = usize;
 
 /// Sorts a sequence using the SelectionSort algorithm.
-///  0, 1, 2, 3, 4, 5, 6, 7, 8, 9
-/// [5, 8, 4, 3, 1, 6, 9, 2, 7, 0]
 pub fn selectsort<T: PartialOrd>(seq: &mut [T]) {
     if seq.len() > 1 {
         for i in 0..(seq.len() - 1) {
@@ -29,8 +27,69 @@ pub fn selectsort<T: PartialOrd>(seq: &mut [T]) {
     }
 }
 
-// Sorts a sequence using the HeapSort algorithm.
-//pub fn heapsort<T: PartialOrd>(seq: &mut [T]) {}
+/// Sorts a sequence using the HeapSort algorithm.
+pub fn heapsort<T: PartialOrd>(mut seq: &mut [T]) {
+    if seq.len() > 1 {
+        make_min_heap(&mut seq);
+        assert!(is_min_heap(&seq));
+        for i in 0..(seq.len() - 1) {
+            make_min_heap(&mut seq[(i + 1)..]);
+        }
+    }
+
+    /// Converts array into minimal heap.
+    fn make_min_heap<T: PartialOrd>(mut seq: &mut [T]) {
+        for i in (0..seq.len() / 2).rev() {
+            min_heapify(&mut seq, i);
+        }
+    }
+
+    /// Maintains the minimal heap property for subtree with root at start.
+    fn min_heapify<T: PartialOrd>(mut seq: &mut [T], start: Index) {
+        let left = 2 * start + 1;
+        let right = left + 1;
+        let mut smallest = start;
+
+        if left < seq.len() && seq[left] < seq[smallest] {
+            smallest = left;
+        }
+        if right < seq.len() && seq[right] < seq[smallest] {
+            smallest = right;
+        }
+
+        if smallest != start {
+            seq.swap(start, smallest);
+            min_heapify(&mut seq, smallest); // recur
+        }
+    }
+
+    /// Checks if a sequence is correct minimal heap.
+    fn is_min_heap<T: PartialOrd>(seq: &[T]) -> bool {
+        fn recur<T: PartialOrd>(seq: &[T], root: Index) -> bool {
+            let n = seq.len();
+            if root >= n / 2 {
+                return true;
+            }
+            let left = 2 * root + 1;
+            if left >= n {
+                return true;
+            }
+            let right = left + 1;
+            if right >= n {
+                return true;
+            }
+            if seq[root] <= seq[left]
+                && seq[root] <= seq[right]
+                && recur(&seq, left)
+                && recur(&seq, right)
+            {
+                return true;
+            }
+            false
+        }
+        recur(seq, 0)
+    }
+}
 
 /// Sorts a sequence using the classical QuickSort algorithm.
 pub fn quicksort<T: PartialOrd>(seq: &mut [T]) {

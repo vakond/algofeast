@@ -3,6 +3,7 @@ use algotest::sort;
 #[test]
 fn it_works() {
     do_test("Selection Sort", sort::selectsort);
+    do_test("Heap Sort", sort::heapsort);
     do_test("Quick Sort", sort::quicksort);
 }
 

@@ -1,1 +1,1 @@
-//! Priority queue aka heap.
+//! Priority queue also known as binary heap.

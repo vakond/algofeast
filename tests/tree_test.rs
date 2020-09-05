@@ -3,7 +3,7 @@ use algotest::tree::Tree;
 
 #[test]
 fn it_works() {
-    let tree = tree![1, 3, 2, 5, 4, 2, 9, 7, 8, 6, 6, 1];
+    let tree = tree!(1, 3, 2, 5, 4, 2, 9, 7, 8, 6, 6, 1);
 
     assert!(tree.contains(4));
     assert!(!tree.contains(999));
