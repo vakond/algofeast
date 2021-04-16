@@ -31,15 +31,6 @@ impl<T: Copy + Ord> Tree<T> {
     }
 }
 
-/// Walks all descendants of link in order, producing sorted vector.
-fn walk_inorder<T: Copy>(link: &Link<T>, acc: &mut Vec<T>) {
-    link.as_ref().map(|node| {
-        walk_inorder(&node.left, acc);
-        acc.push(node.value);
-        walk_inorder(&node.right, acc);
-    });
-}
-
 type Link<T> = Option<Box<Node<T>>>;
 
 fn new_link<T>(value: T) -> Link<T> {
@@ -66,6 +57,15 @@ fn contains_link<T: Ord>(link: &Link<T>, value: T) -> bool {
             Ordering::Equal => true,
         },
     }
+}
+
+/// Walks all descendants of link in order, producing sorted vector.
+fn walk_inorder<T: Copy>(link: &Link<T>, acc: &mut Vec<T>) {
+    link.as_ref().map(|node| {
+        walk_inorder(&node.left, acc);
+        acc.push(node.value);
+        walk_inorder(&node.right, acc);
+    });
 }
 
 struct Node<T> {
