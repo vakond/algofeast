@@ -1,5 +1,5 @@
-use algotest::tree; // macro tree!
-use algotest::tree::Tree;
+use algofeast::tree; // macro tree!
+use algofeast::tree::Tree;
 
 #[test]
 fn it_works() {

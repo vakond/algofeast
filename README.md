@@ -1,3 +1,3 @@
-# algotest
+# algofeast
 
-### Bunch of homemade implementations of several classic algorithms
+### Some crazy algorithmic stuff

@@ -1,4 +1,4 @@
-use algotest::sort;
+use algofeast::sort;
 
 #[test]
 fn it_works() {
